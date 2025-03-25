@@ -1,0 +1,449 @@
+---
+title: "HuertaSandraLab3"
+output: html_document
+date: "2025-03-18"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+x <- 5
+if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is 5 or less")
+}
+```
+```{r}
+x <- -3
+
+if (x > 0) {
+  print("Positive number")
+} else if (x < 0) {
+  print("Negative number")
+} else {
+  print("Zero")
+}
+```
+```{r}
+age <- 30
+
+if (age >= 18 & age <= 60) {
+  print("Eligible for work")
+} else {
+  print("Not eligible for work")
+}
+```
+```{r}
+check_even_odd <- function(num) {
+  if (num %% 2 == 0) {
+    return("Even number")
+  } else {
+    return("Odd number")
+  }
+}
+
+result <- check_even_odd(15)
+print(result)
+```
+```{r}
+score <- 85
+
+if (score >= 90) {
+  print("Grade: A")
+} else {
+  if (score >= 75) {
+    print("Grade: B")
+  } else {
+    print("Grade: C")
+  }
+}
+```
+```{r}
+numbers <- c(2, 5, 8, 11, 14)
+
+results <- ifelse(numbers %% 2 == 0, "Even", "Odd")
+
+print(results)
+```
+```{r}
+day <- "Monday"
+
+message <- switch(day,
+  "Monday" = "Start of the week!",
+  "Friday" = "End of the workweek!",
+  "Sunday" = "Relax and recharge!",
+  "Regular day"
+)
+
+print(message)
+```
+```{r}
+fruit <- "banana"
+
+color <- switch(fruit,
+  "apple" = "Red",
+  "banana" = "Yellow",
+  "grape" = "Purple",
+  "orange" = "Orange",
+  "Unknown fruit"
+)
+
+print(color)
+```
+```{r}
+option <- 1
+
+result <- switch(option,
+  "First option selected",
+  "Second option selected",
+  "Third option selected"
+)
+
+print(result)
+```
+```{r}
+operation <- function(choice, a, b) {
+  result <- switch(choice,
+    "add" = a + b,
+    "subtract" = a - b,
+    "multiply" = a * b,
+    "divide" = if (b != 0) a / b else "Cannot divide by zero",
+    "Invalid choice"
+  )
+  return(result)
+}
+
+print(operation("add", 5, 3))
+print(operation("subtract", 5, 3))
+print(operation("multiply", 5, 3))
+print(operation("divide", 5, 0))
+print(operation("unknown", 5, 3))
+
+```
+```{r}
+for (i in 1:10) {
+  print(i)
+}
+```
+```{r}
+for (i in seq(2, 20, by = 2)) {
+  print(i)
+}
+```
+```{r}
+sum <- 0
+for (i in 1:10) {
+  sum <- sum + i
+}
+print(sum)
+```
+```{r}
+v <- c(10, 20, 30, 40, 50)
+for (i in v) {
+  print(i)
+}
+```
+```{r}
+fact <- 1
+n <- 5  
+
+for (i in 1:n) {
+  fact <- fact * i
+}
+print(fact)
+```
+```{r}
+x <- 1
+
+while (x <= 5) {
+  print(x)
+  x <- x + 1
+}
+```
+```{r}
+num <- 1
+
+while (TRUE) {
+  if (num %% 7 == 0 & num %% 5 == 0) {
+    print(num)
+    break
+  }
+  num <- num + 1
+}
+```
+```{r}
+n <- 1234
+sum <- 0
+
+while (n > 0) {
+  digit <- n %% 10
+  sum <- sum + digit
+  n <- n %/% 10
+}
+print(sum)
+```
+```{r}
+counter <- 1
+
+repeat {
+  print("Hello")
+  counter <- counter + 1
+  if (counter > 5) {
+    break
+  }
+}
+```
+```{r}
+n <- 25
+guess <- n / 2
+tolerance <- 1e-6
+
+repeat {
+  new_guess <- (guess + n / guess) / 2
+  if (abs(new_guess - guess) < tolerance) {
+    break
+  }
+  guess <- new_guess
+}
+print(new_guess)
+```
+```{r}
+for (i in 1:5) {
+  for (j in 1:5) {
+    print("*", quote = FALSE)
+  }
+  cat("\n")
+}
+```
+```{r}
+for (i in 1:5) {
+  for (j in 1:5) {
+    cat(i * j, "\t")
+  }
+  cat("\n")
+}
+```
+```{r}
+for (i in 1:5) {
+  for (j in 1:i) {
+    cat(i, " ")
+  }
+  cat("\n")
+}
+```
+```{r}
+for (num in 1:50) {
+  is_prime <- TRUE
+  
+  for (i in 2:(num - 1)) {
+    if (num %% i == 0) {
+      is_prime <- FALSE
+      break 
+    }
+  }
+  if (is_prime && num > 1) {
+    print(num)
+  }
+}
+```
+```{r}
+height <- 5
+
+for (i in 1:height) {
+  for (j in 1:(height - i)) {
+    cat(" ")
+  }
+  for (k in 1:(2 * i - 1)) {
+    cat("*")
+  }
+  cat("\n")
+}
+for (i in (height - 1):1) {
+  for (j in 1:(height - i)) {
+    cat(" ")
+  }
+  for (k in 1:(2 * i - 1)) {
+    cat("*")
+  }
+  cat("\n")
+}
+
+```
+```{r}
+marks <- c(45, 75, 80, 50, 60, 30)
+result <- ifelse(marks >= 50, "Pass", "Fail")
+
+print(result)
+```
+```{r}
+numbers <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+even_odd <- ifelse(numbers %% 2 == 0, "Even", "Odd")
+
+print(even_odd)
+```
+```{r}
+scores <- c(95, 85, 76, 64, 59)
+grades <- ifelse(scores >= 90, "A",
+           ifelse(scores >= 80, "B",
+           ifelse(scores >= 70, "C",
+           ifelse(scores >= 60, "D", "F"))))
+
+print(grades)
+```
+```{r}
+vec <- c(10, -5, 20, -3, 15, -8)
+vec_updated <- ifelse(vec < 0, 0, vec)
+
+print(vec_updated)
+```
+```{r}
+ages <- c(5, 15, 25, 45, 70, 85)
+age_group <- ifelse(ages < 18, "Child", 
+                    ifelse(ages >= 18 & ages <= 60, "Adult", "Senior"))
+
+print(age_group)
+```
+```{r}
+add_numbers <- function(a, b) {
+  return(a + b)
+}
+result <- add_numbers(5, 7)
+print(result)
+```
+```{r}
+check_even_odd <- function(n) {
+  if (n %% 2 == 0) {
+    return("Even")
+  } else {
+    return("Odd")
+  }
+}
+print(check_even_odd(4))
+print(check_even_odd(7))
+```
+```{r}
+factorial <- function(n) {
+  if (n == 0) {
+    return(1)
+  } else {
+    return(n * factorial(n - 1))
+  }
+}
+
+result <- factorial(0)
+print(result)
+```
+```{r}
+max_of_three <- function(a, b, c) {
+  return(max(a, b, c))
+}
+print(max_of_three(10, 20, 15))
+print(max_of_three(5, 3, 6))
+```
+```{r}
+fibonacci <- function(n) {
+  fib_seq <- numeric(n)
+  fib_seq[1] <- 1
+  fib_seq[2] <- 1
+  
+  for (i in 3:n) {
+    fib_seq[i] <- fib_seq[i - 1] + fib_seq[i - 2]
+  }
+  return(fib_seq)
+}
+print(fibonacci(8))
+```
+```{r}
+count_vowels <- function(text) {
+  vowels <- c("a", "e", "i", "o", "u")
+  text <- tolower(text)
+  count <- sum(strsplit(text, NULL)[[1]] %in% vowels)
+  return(count)
+}
+print(count_vowels("hello Houston"))
+```
+```{r}
+reverse_string <- function(str) {
+  return(paste(rev(strsplit(str, NULL)[[1]]), collapse = ""))
+}
+print(reverse_string("Sandra"))
+```
+```{r}
+filter_even <- function(vec) {
+  return(vec[vec %% 2 == 0])
+}
+print(filter_even(c(1, 2, 3, 4, 5, 6)))
+```
+```{r}
+is_prime <- function(n) {
+  if (n <= 1) {
+    return(FALSE)
+  }
+  for (i in 2:sqrt(n)) {
+    if (n %% i == 0) {
+      return(FALSE)
+    }
+  }
+  return(TRUE)
+}
+print(is_prime(7))
+print(is_prime(10))
+print(is_prime(13))
+```
+```{r}
+stats_summary <- function(vec) {
+  mean_val <- mean(vec)
+  sd_val <- sd(vec)
+  
+  return(list(mean = mean_val, sd = sd_val))
+}
+result <- stats_summary(c(10, 20, 30, 40, 50))
+print(result)
+```
+```{r}
+categorize_numbers <- function(vec) {
+  return(ifelse(vec > 0, "Positive", ifelse(vec < 0, "Negative", "Zero")))
+}
+numbers <- c(-5, 0, 10, -3, 8, 0)
+categorize_numbers(numbers)
+```
+```{r}
+assign_grades <- function(scores) {
+  return(ifelse(scores >= 90, "A",
+         ifelse(scores >= 80, "B",
+         ifelse(scores >= 70, "C",
+         ifelse(scores >= 60, "D", "F")))))
+}
+marks <- c(95, 82, 74, 60, 45)
+assign_grades(marks)
+```
+```{r}
+categorize_temperature <- function(temp) {
+  return(ifelse(temp >= 30, "Hot",
+         ifelse(temp >= 20, "Warm",
+         ifelse(temp >= 10, "Cool", "Cold"))))
+}
+temps <- c(35, 25, 15, 5, 28)
+categorize_temperature(temps)
+```
+```{r}
+age_group <- function(ages) {
+  return(ifelse(ages < 13, "Child",
+         ifelse(ages < 20, "Teen",
+         ifelse(ages < 60, "Adult", "Senior"))))
+}
+ages <- c(10, 16, 25, 45, 70)
+age_group(ages)
+```
+```{r}
+classify_numbers <- function(vec) {
+  return(ifelse(vec < 10, "Small",
+         ifelse(vec < 50, "Medium", "Large")))
+}
+values <- c(5, 20, 45, 75, 100)
+classify_numbers(values)
+```
+
