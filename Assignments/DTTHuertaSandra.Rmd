@@ -1,0 +1,174 @@
+---
+title: "DataTrans_DatTidy_Lab"
+author: "ITDS 1372"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+###Data Transformation
+
+##Start by loading library(tidyverse) and library(dplyr) if not done already.
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+
+3.2.5 Exercises
+In a single pipeline for each condition, find all flights that meet the condition:
+
+1. Had an arrival delay of two or more hours
+
+```{r}
+flights %>%
+  filter(arr_delay >= 120)
+```
+
+2. Flew to Houston (IAH or HOU)
+```{r}
+flights %>%
+  filter(dest %in% c("IAH", "HOU"))
+```
+
+3. Were operated by United, American, or Delta
+```{r}
+flights %>%
+  filter(carrier %in% c("UA", "AA", "DL"))
+```
+
+4. Departed in summer (July, August, and September)
+```{r}
+flights %>%
+  filter(month %in% c(7, 8, 9))
+```
+
+5. Arrived more than two hours late but didn’t leave late
+```{r}
+flights %>%
+  filter(arr_delay > 120, dep_delay <= 0)
+```
+
+6. Were delayed by at least an hour, but made up over 30 minutes in flight
+```{r}
+flights %>%
+  filter(dep_delay >= 60, dep_delay - arr_delay > 30)
+```
+
+7. Sort flights to find the flights with the longest departure delays. 
+```{r}
+flights %>%
+  arrange(desc(dep_delay)) 
+```
+
+Find the flights that left earliest in the morning.
+```{r}
+flights %>%
+  arrange(dep_time)
+```
+
+8. Sort flights to find the fastest flights. (Hint: Try including a math calculation inside of your function.)
+```{r}
+flights %>%
+  mutate(speed = distance / air_time) %>%
+  arrange(desc(speed))
+```
+
+9. Was there a flight on every day of 2013?
+```{r}
+flights %>%
+  count(year, month, day) %>%
+  summarize(all_days_covered = n_distinct(paste(year, month, day)) == 365)
+```
+
+10. Which flights traveled the farthest distance? 
+```{r}
+flights %>%
+  arrange(desc(distance)) %>% 
+  head(5)
+```
+
+Which traveled the least distance?
+```{r}
+flights %>%
+  arrange(distance) %>%  # Shortest distance
+  head(5)
+```
+
+11. Does it matter what order you used filter() and arrange() if you’re using both? Why/why not? Think about the results and how much work the functions would have to do.
+
+The order does matter because first step is to reduce the dataset by filtering and then shorten the time when sorting. By filtering first, the arrange function will have less work to do. 
+```{r}
+```
+
+
+
+###Displaying three tables
+
+TB cases in world
+
+```{r}
+table1
+```
+```{r}
+table2
+```
+```{r}
+table3
+```
+```{r}
+# Compute rate per 10,000
+table1 |>
+  mutate(rate = cases / population * 10000)
+
+
+# Compute total cases per year
+table1 |> 
+  group_by(year) |> 
+  summarize(total_cases = sum(cases))
+
+
+# Visualize changes over time
+ggplot(table1, aes(x = year, y = cases)) +
+  geom_line(aes(group = country), color = "grey50") +
+  geom_point(aes(color = country, shape = country)) +
+  scale_x_continuous(breaks = c(1999, 2000)) # x-axis breaks at 1999 and 2000
+```
+###5.2.1 Exercises
+For each of the sample tables, describe what each observation and each column represents.
+
+Sketch out the process you’d use to calculate the rate for table2 and table3. You will need to perform four operations:
+
+1.  Extract the number of TB cases per country per year.
+2.  Extract the matching population per country per year.
+3.  Divide cases by population, and multiply by 10000.
+4.  Store back in the appropriate place.
+
+You haven’t yet learned all the functions you’d need to actually perform these operations, but you should still be able to think through the transformations you’d need.
+
+
+```{r}
+In table 1, Each observation represents TB cases for a specific country in a given year. Columns call for names of Countries, Year of the observation, number of TB cases, population of the country and rate of the cases.
+
+In table 2 we can see the same information as in table 1 but in a different format. Cases and population are placed as observations so it results in more rows.      
+
+In table 3 we can still see the same information but in another format. Cases and population is in the same column named 'rate'.
+
+```
+
+
+```{r}
+for table 2:
+1. Extract TB cases: Filter rows where type == "cases", keeping country, year, and count as cases.
+2. Extract Population: Filter rows where type == "population", keeping country, year, and count as population.
+3. Join the two datasets by merge the cases and population data by country and year.
+4. Calculate the rate using Compute rate = (cases / population) * 10000.
+Store back by updating the dataset with a new rate column.
+
+for table 3:
+1. TB cases and population are already stored in separate columns
+2. To calculate the rate, Compute rate = (cases / population) * 10000
+3. Store back: Add a new rate column to the table.
+
+```
+
